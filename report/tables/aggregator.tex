@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{Aggregator ablation: the encoder and classifier are fixed and only the pooling operator changes (test metrics, mean $\pm$ std over seeds).}
+\label{tab:aggregator}
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccccc}
+\toprule
+ & \multicolumn{3}{c}{CAMELYON16} & \multicolumn{3}{c}{CAMELYON17} & \multicolumn{3}{c}{BRACS} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+Method & AUC & ACC (\%) & Macro-F1 & AUC & ACC (\%) & Macro-F1 & AUC & ACC (\%) & Macro-F1 \\
+\midrule
+ABMIL (baseline) & 0.914 $\pm$ 0.034 & \textbf{88.37 $\pm$ 3.59} & \textbf{0.869 $\pm$ 0.044} & 0.855 $\pm$ 0.012 & 77.20 $\pm$ 3.51 & 0.536 $\pm$ 0.027 & \textbf{0.807 $\pm$ 0.010} & \textbf{43.26 $\pm$ 2.52} & 0.340 $\pm$ 0.018 \\
+Mean pooling & 0.637 $\pm$ 0.042 & 67.75 $\pm$ 1.95 & 0.607 $\pm$ 0.031 & 0.798 $\pm$ 0.016 & 71.30 $\pm$ 2.66 & 0.460 $\pm$ 0.035 & 0.661 $\pm$ 0.007 & 33.49 $\pm$ 1.91 & 0.249 $\pm$ 0.019 \\
+Max pooling & \textbf{0.944 $\pm$ 0.009} & 88.22 $\pm$ 2.01 & 0.867 $\pm$ 0.025 & \textbf{0.874 $\pm$ 0.006} & \textbf{84.20 $\pm$ 0.91} & \textbf{0.556 $\pm$ 0.040} & 0.765 $\pm$ 0.006 & 42.56 $\pm$ 2.55 & \textbf{0.342 $\pm$ 0.027} \\
+\bottomrule
+\end{tabular}}
+\end{table*}

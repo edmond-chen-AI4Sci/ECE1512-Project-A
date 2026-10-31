@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\caption{Attention concentration on the test slides (mean over slides, then mean $\pm$ std over seeds). $\tilde H$: entropy normalized by $\log N$; Top-1\%: attention mass on the top 1\% of patches.}
+\label{tab:attention}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{CAMELYON16} & \multicolumn{2}{c}{CAMELYON17} & \multicolumn{2}{c}{BRACS} \\
+Method & $\tilde H$ & Top-1\% & $\tilde H$ & Top-1\% & $\tilde H$ & Top-1\% \\
+\midrule
+ABMIL (baseline) & 0.84 $\pm$ 0.04 & 0.26 $\pm$ 0.05 & 0.77 $\pm$ 0.02 & 0.33 $\pm$ 0.02 & 0.73 $\pm$ 0.03 & 0.46 $\pm$ 0.04 \\
+STKIM only & 0.83 $\pm$ 0.03 & 0.28 $\pm$ 0.04 & 0.79 $\pm$ 0.03 & 0.30 $\pm$ 0.05 & 0.65 $\pm$ 0.04 & 0.57 $\pm$ 0.06 \\
+MBA only & 0.89 $\pm$ 0.02 & 0.21 $\pm$ 0.05 & 0.84 $\pm$ 0.04 & 0.30 $\pm$ 0.08 & 0.76 $\pm$ 0.04 & 0.44 $\pm$ 0.06 \\
+ACMIL (MBA + STKIM) & 0.89 $\pm$ 0.02 & 0.23 $\pm$ 0.04 & 0.81 $\pm$ 0.03 & 0.34 $\pm$ 0.05 & 0.75 $\pm$ 0.04 & 0.45 $\pm$ 0.05 \\
+\bottomrule
+\end{tabular}}
+\end{table}

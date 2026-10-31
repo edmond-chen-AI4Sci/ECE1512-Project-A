@@ -1,0 +1,84 @@
+{
+ "dataset": "BRACS",
+ "model": "abmil",
+ "model_description": "ABMIL baseline (gated attention, K=1)",
+ "model_kwargs": {},
+ "seed": 1,
+ "split_seed": 42,
+ "n_train": 389,
+ "n_val": 62,
+ "n_test": 86,
+ "class_counts": {
+  "train": [
+   24,
+   119,
+   54,
+   24,
+   28,
+   40,
+   100
+  ],
+  "val": [
+   10,
+   10,
+   7,
+   6,
+   8,
+   9,
+   12
+  ],
+  "test": [
+   6,
+   16,
+   9,
+   11,
+   12,
+   12,
+   20
+  ]
+ },
+ "n_params": 166024,
+ "epochs": 30,
+ "best_epoch": 8,
+ "val": {
+  "auc": 0.8147080540657043,
+  "f1": 0.43172958493232727,
+  "acc": 53.22580337524414,
+  "loss": 1.5221041313733064
+ },
+ "test": {
+  "auc": 0.8094993829727173,
+  "acc": 46.51162624359131,
+  "f1": 0.33527109026908875,
+  "loss": 1.3779549574361691
+ },
+ "test_attention": {
+  "entropy_norm": 0.7236176398137633,
+  "eff_frac": 0.2164626732592488,
+  "top1pct_mass": 0.47613934570407995,
+  "max_weight": 0.06155608012665391
+ },
+ "train_time_s": 50.395689964294434,
+ "device": "cuda",
+ "data_pipeline": "gpu_cache",
+ "config": {
+  "dataset": "BRACS",
+  "data_dir": "/content/feature/BRACS/patch_feats_pretrain_medical_ssl.h5",
+  "dataset_csv_dir": "/content/project/dataset_csv",
+  "D_feat": 384,
+  "D_inner": 256,
+  "D_attn": 128,
+  "n_res": 0,
+  "n_class": 7,
+  "B": 1,
+  "n_worker": 0,
+  "pin_memory": true,
+  "n_shot": 0,
+  "seed": 42,
+  "lr": 0.0001,
+  "wd": 1e-05,
+  "train_epoch": 30,
+  "warmup_epoch": 3,
+  "droprate": 0.0
+ }
+}

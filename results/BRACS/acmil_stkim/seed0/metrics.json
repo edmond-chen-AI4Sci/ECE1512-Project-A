@@ -1,0 +1,89 @@
+{
+ "dataset": "BRACS",
+ "model": "acmil_stkim",
+ "model_description": "Ablation: stochastic top-k masking only (single branch)",
+ "model_kwargs": {
+  "n_branch": 1,
+  "n_masked_patch": 10,
+  "mask_drop": 0.6,
+  "div_weight": 0.0
+ },
+ "seed": 0,
+ "split_seed": 42,
+ "n_train": 389,
+ "n_val": 62,
+ "n_test": 86,
+ "class_counts": {
+  "train": [
+   24,
+   119,
+   54,
+   24,
+   28,
+   40,
+   100
+  ],
+  "val": [
+   10,
+   10,
+   7,
+   6,
+   8,
+   9,
+   12
+  ],
+  "test": [
+   6,
+   16,
+   9,
+   11,
+   12,
+   12,
+   20
+  ]
+ },
+ "n_params": 167823,
+ "epochs": 30,
+ "best_epoch": 10,
+ "val": {
+  "auc": 0.8298534154891968,
+  "f1": 0.4079034924507141,
+  "acc": 50.0,
+  "loss": 1.424614691920954
+ },
+ "test": {
+  "auc": 0.8212662935256958,
+  "acc": 44.186046719551086,
+  "f1": 0.3642749786376953,
+  "loss": 1.4179893059569388
+ },
+ "test_attention": {
+  "entropy_norm": 0.6946381329066915,
+  "eff_frac": 0.15862618128326675,
+  "top1pct_mass": 0.5078979685260036,
+  "max_weight": 0.06341543883335343
+ },
+ "train_time_s": 59.755271673202515,
+ "device": "cuda",
+ "data_pipeline": "gpu_cache",
+ "config": {
+  "dataset": "BRACS",
+  "data_dir": "/content/feature/BRACS/patch_feats_pretrain_medical_ssl.h5",
+  "dataset_csv_dir": "/content/project/dataset_csv",
+  "D_feat": 384,
+  "D_inner": 256,
+  "D_attn": 128,
+  "n_res": 0,
+  "n_class": 7,
+  "B": 1,
+  "n_worker": 0,
+  "pin_memory": true,
+  "n_shot": 0,
+  "seed": 42,
+  "lr": 0.0001,
+  "wd": 1e-05,
+  "train_epoch": 30,
+  "warmup_epoch": 3,
+  "droprate": 0.0
+ }
+}

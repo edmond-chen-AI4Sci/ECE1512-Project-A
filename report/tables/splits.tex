@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Slide-level splits shared by every experiment (split seed 42). Parentheses: slides per class, in label order CAMELYON16 normal/tumor; CAMELYON17 negative/ITC/micro/macro; BRACS N/PB/UDH/FEA/ADH/DCIS/IC.}
+\label{tab:splits}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+Dataset & Train & Val & Test \\
+\midrule
+CAMELYON16 & 242 (142/100) & 27 (16/11) & 129 (80/49) \\
+CAMELYON17 & 269 (177/18/37/37) & 30 (20/2/4/4) & 200 (121/16/18/45) \\
+BRACS & 389 (24/119/54/24/28/40/100) & 62 (10/10/7/6/8/9/12) & 86 (6/16/9/11/12/12/20) \\
+\midrule
+ & CAMELYON16 & CAMELYON17 & BRACS \\
+ABMIL parameters & 164,739 & 165,253 & 166,024 \\
+ACMIL parameters & 167,825 & 170,909 & 175,535 \\
+\bottomrule
+\end{tabular}}
+\end{table}

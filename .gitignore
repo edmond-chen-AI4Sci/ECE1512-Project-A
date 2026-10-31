@@ -1,0 +1,28 @@
+# Large inputs: download them, do not commit them
+feature/
+slide/
+*.h5
+*.tif
+*.zip
+
+# Python / notebooks
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# LaTeX build files
+report/*.aux
+report/*.bbl
+report/*.blg
+report/*.log
+report/*.out
+report/*.fls
+report/*.fdb_latexmk
+report/*.synctex.gz
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Duplicate copy of the original starter package
+Project_A_Starter_Code/

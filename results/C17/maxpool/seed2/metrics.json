@@ -1,0 +1,77 @@
+{
+ "dataset": "C17",
+ "model": "maxpool",
+ "model_description": "Encoder + max pooling + classifier",
+ "model_kwargs": {},
+ "seed": 2,
+ "split_seed": 42,
+ "n_train": 269,
+ "n_val": 30,
+ "n_test": 200,
+ "class_counts": {
+  "train": [
+   177,
+   18,
+   37,
+   37
+  ],
+  "val": [
+   20,
+   2,
+   4,
+   4
+  ],
+  "test": [
+   121,
+   16,
+   18,
+   45
+  ]
+ },
+ "n_params": 99332,
+ "epochs": 30,
+ "best_epoch": 19,
+ "val": {
+  "auc": 0.8534753322601318,
+  "f1": 0.58441561460495,
+  "acc": 83.33333730697632,
+  "loss": 0.5396631651557982
+ },
+ "test": {
+  "auc": 0.876730740070343,
+  "acc": 83.49999785423279,
+  "f1": 0.5213068127632141,
+  "loss": 0.47905527061782777
+ },
+ "test_attention": {
+  "entropy_norm": 0.5888063031277436,
+  "eff_frac": 0.02668385299988664,
+  "top1pct_mass": 0.5315234375,
+  "max_weight": 0.0196484375
+ },
+ "train_time_s": 25.355055809020996,
+ "device": "cuda",
+ "data_pipeline": "gpu_cache",
+ "config": {
+  "dataset": "CAMELYON17",
+  "data_dir": "/content/feature/C17/patch_feats_pretrain_medical_ssl.h5",
+  "dataset_csv_dir": "/content/project/dataset_csv",
+  "cam17_test_center_min": 3,
+  "D_feat": 384,
+  "D_inner": 256,
+  "D_attn": 128,
+  "n_res": 0,
+  "n_class": 4,
+  "B": 1,
+  "n_worker": 0,
+  "pin_memory": true,
+  "n_shot": 0,
+  "val_fraction": 0.1,
+  "seed": 42,
+  "lr": 0.0001,
+  "wd": 1e-05,
+  "train_epoch": 30,
+  "warmup_epoch": 3,
+  "droprate": 0.0
+ }
+}

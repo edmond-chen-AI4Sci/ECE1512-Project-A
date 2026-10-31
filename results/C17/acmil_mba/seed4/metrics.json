@@ -1,0 +1,82 @@
+{
+ "dataset": "C17",
+ "model": "acmil_mba",
+ "model_description": "Ablation: multi-branch attention + diversity loss only",
+ "model_kwargs": {
+  "n_branch": 5,
+  "n_masked_patch": 0,
+  "mask_drop": 0.0,
+  "div_weight": 1.0
+ },
+ "seed": 4,
+ "split_seed": 42,
+ "n_train": 269,
+ "n_val": 30,
+ "n_test": 200,
+ "class_counts": {
+  "train": [
+   177,
+   18,
+   37,
+   37
+  ],
+  "val": [
+   20,
+   2,
+   4,
+   4
+  ],
+  "test": [
+   121,
+   16,
+   18,
+   45
+  ]
+ },
+ "n_params": 170909,
+ "epochs": 30,
+ "best_epoch": 29,
+ "val": {
+  "auc": 0.9299313426017761,
+  "f1": 0.7662162184715271,
+  "acc": 83.33333730697632,
+  "loss": 0.5351872430202396
+ },
+ "test": {
+  "auc": 0.8715559244155884,
+  "acc": 80.50000071525574,
+  "f1": 0.6286680698394775,
+  "loss": 0.7306451274704477
+ },
+ "test_attention": {
+  "entropy_norm": 0.8039857495056093,
+  "eff_frac": 0.2404399018955602,
+  "top1pct_mass": 0.3529779137821393,
+  "max_weight": 0.053631390465789595
+ },
+ "train_time_s": 48.60735535621643,
+ "device": "cuda",
+ "data_pipeline": "gpu_cache",
+ "config": {
+  "dataset": "CAMELYON17",
+  "data_dir": "/content/feature/C17/patch_feats_pretrain_medical_ssl.h5",
+  "dataset_csv_dir": "/content/project/dataset_csv",
+  "cam17_test_center_min": 3,
+  "D_feat": 384,
+  "D_inner": 256,
+  "D_attn": 128,
+  "n_res": 0,
+  "n_class": 4,
+  "B": 1,
+  "n_worker": 0,
+  "pin_memory": true,
+  "n_shot": 0,
+  "val_fraction": 0.1,
+  "seed": 42,
+  "lr": 0.0001,
+  "wd": 1e-05,
+  "train_epoch": 30,
+  "warmup_epoch": 3,
+  "droprate": 0.0
+ }
+}

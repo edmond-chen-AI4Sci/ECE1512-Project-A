@@ -1,0 +1,77 @@
+{
+ "dataset": "C17",
+ "model": "abmil",
+ "model_description": "ABMIL baseline (gated attention, K=1)",
+ "model_kwargs": {},
+ "seed": 2,
+ "split_seed": 42,
+ "n_train": 269,
+ "n_val": 30,
+ "n_test": 200,
+ "class_counts": {
+  "train": [
+   177,
+   18,
+   37,
+   37
+  ],
+  "val": [
+   20,
+   2,
+   4,
+   4
+  ],
+  "test": [
+   121,
+   16,
+   18,
+   45
+  ]
+ },
+ "n_params": 165253,
+ "epochs": 30,
+ "best_epoch": 13,
+ "val": {
+  "auc": 0.8713598847389221,
+  "f1": 0.6992595791816711,
+  "acc": 86.66667342185974,
+  "loss": 0.47511191001782815
+ },
+ "test": {
+  "auc": 0.8604463338851929,
+  "acc": 79.49999570846558,
+  "f1": 0.5576935410499573,
+  "loss": 0.6127943091584893
+ },
+ "test_attention": {
+  "entropy_norm": 0.7588711046660873,
+  "eff_frac": 0.2954957794086297,
+  "top1pct_mass": 0.34317695916251933,
+  "max_weight": 0.0860139081566758
+ },
+ "train_time_s": 37.25701880455017,
+ "device": "cuda",
+ "data_pipeline": "gpu_cache",
+ "config": {
+  "dataset": "CAMELYON17",
+  "data_dir": "/content/feature/C17/patch_feats_pretrain_medical_ssl.h5",
+  "dataset_csv_dir": "/content/project/dataset_csv",
+  "cam17_test_center_min": 3,
+  "D_feat": 384,
+  "D_inner": 256,
+  "D_attn": 128,
+  "n_res": 0,
+  "n_class": 4,
+  "B": 1,
+  "n_worker": 0,
+  "pin_memory": true,
+  "n_shot": 0,
+  "val_fraction": 0.1,
+  "seed": 42,
+  "lr": 0.0001,
+  "wd": 1e-05,
+  "train_epoch": 30,
+  "warmup_epoch": 3,
+  "droprate": 0.0
+ }
+}
