@@ -32,9 +32,9 @@
 \title{Attention-Based Multiple Instance Learning for Whole-Slide Image Classification:\\
 Baseline Analysis and an Attention-Challenging Extension}
 
-\author{\IEEEauthorblockN{Edmond Chen \quad \pending{other group members}}
+\author{\IEEEauthorblockN{Edmond Chen}
 \IEEEauthorblockA{University of Toronto, ECE1512 Project A\\
-Code: \url{https://github.com/edmond-chen-AI4Sci/ECE1512-Project-A}}}
+Code: \href{https://github.com/edmond-chen-AI4Sci/ECE1512-Project-A}{\upshape https://github.com/edmond-chen-AI4Sci/ECE1512-Project-A}}}
 
 \maketitle
 
@@ -96,14 +96,14 @@ Every slide is given as a bag of pre-extracted patch features $x_i\in\R^{384}$ (
 \inputorpending{tables/splits.tex}{Slide-level splits and class counts.}{tab:splits}
 
 \subsection{Model}\label{sec:model}
-Fig.~\ref{fig:arch} summarises the model. With $B$ bags of $N$ patches,
+Fig.~\ref{fig:arch} summarises the model. For a bag of $N$ patch features $x_i\in\R^{384}$,
 \begin{align}
-h_i &= \mathrm{ReLU}(W_r x_i), & W_r&\in\R^{256\times384}, \label{eq:enc}\\
-a_i &= w^\top\big[\tanh(V h_i)\odot\sigma(U h_i)\big]+b, & V,U&\in\R^{128\times256},\label{eq:att}\\
-\alpha_i &= \frac{\exp(a_i)}{\sum_{j=1}^N\exp(a_j)}, & z&=\sum_{i=1}^N \alpha_i h_i,\label{eq:pool}\\
-\hat y &= W_c z + b_c, & W_c&\in\R^{C\times256}.\label{eq:cls}
+h_i &= \mathrm{ReLU}(W_r x_i), \label{eq:enc}\\
+a_i &= w^\top\big[\tanh(V h_i)\odot\sigma(U h_i)\big]+b, \label{eq:att}\\
+\alpha_i &= \frac{\exp(a_i)}{\sum_{j=1}^{N}\exp(a_j)}, \qquad z=\sum_{i=1}^{N} \alpha_i h_i, \label{eq:pool}\\
+\hat y &= W_c z + b_c, \label{eq:cls}
 \end{align}
-The model has 164{,}739 trainable parameters for $C{=}2$ (98{,}304 in $W_r$, 65{,}921 in the attention module, $256C{+}C$ in the classifier). In code, $x$ is a padded tensor $[B,N,384]$ with a boolean mask $[B,N]$; we set the attention logits of padded patches to $-\infty$ before the softmax so that padding receives zero weight, which makes the model exactly invariant to padding for $B>1$ (verified by a unit test). With the default $B{=}1$ there is no padding.
+with $W_r\in\R^{256\times384}$ (no bias), $V,U\in\R^{128\times256}$, $w\in\R^{128}$ and $W_c\in\R^{C\times256}$. The model has 164{,}739 trainable parameters for CAMELYON16 ($C{=}2$), 165{,}253 for CAMELYON17 and 166{,}024 for BRACS (98{,}304 in $W_r$, 65{,}921 in the attention module, $256C{+}C$ in the classifier). In code, $x$ is a padded tensor $[B,N,384]$ with a boolean mask $[B,N]$; we set the attention logits of padded patches to $-\infty$ before the softmax so that padding receives zero weight, which makes the model exactly invariant to padding for $B>1$ (verified by a unit test). With the default $B{=}1$ there is no padding.
 
 \begin{figure}[t]
 \centering
@@ -225,7 +225,7 @@ The training objective is
 \begin{equation}
 \mathcal{L}=\CE(\hat y,Y)+\frac1K\sum_{k=1}^{K}\CE(\hat y_k,Y)+\lambda\,\mathcal{L}_{\text{div}},\qquad \lambda=1.
 \end{equation}
-At test time masking is off, so inference is deterministic and costs the same as ABMIL up to the $K$ scorer outputs; the model has 3{,}086 more parameters than ABMIL for $C{=}2$.
+At test time masking is off, so inference is deterministic and costs the same as ABMIL up to the $K$ scorer outputs; the model has 167{,}825, 170{,}909 and 175{,}535 parameters on the three datasets, 2--6\% more than ABMIL.
 
 \emph{Rationale for the design choices.} (i) Masking targets the \emph{top-attended} patches rather than random patches because a random 1\% instance dropout on a bag of $10^4$ patches would almost never remove the few patches that carry all the attention; (ii) only a random subset of the top patches is hidden, so the model is challenged but still sees some of the strongest evidence and the slide label remains supported; (iii) masking is applied to logits before the softmax, so the remaining weights still sum to one; (iv) several branches with a diversity penalty are a cheap way to cover several distinct regions of a slide without the parameters of a transformer, and each branch has its own classifier so that every branch must be predictive on its own; (v) averaging the branch attentions for the final prediction pools the evidence of all branches into one embedding; (vi) we keep all optimisation hyper-parameters identical to the baseline and adopt $K{=}5$, $m{=}10$, 60\% masking and $\lambda{=}1$ from~\cite{zhang2024acmil} without tuning, so that any difference is attributable to the method rather than to extra tuning on our small validation sets.
 
@@ -291,7 +291,7 @@ Following the ML reproducibility checklist~\cite{pineau2021reproducibility}. The
 \smallskip\noindent\textbf{Models and algorithms.}
 Mathematical description of the model and algorithm: yes, Secs.~\ref{sec:model} and~\ref{sec:p1}.
 Assumptions: yes, frozen features (Sec.~\ref{sec:baseline}), split construction (Table~\ref{tab:splits}).
-Complexity: parameter counts in Sec.~\ref{sec:model} and Table~\ref{tab:splits}; time and memory are linear in the number of patches; measured run times in \texttt{results/all\_runs.csv}.
+Complexity: parameter counts in Secs.~\ref{sec:model} and~\ref{sec:p1}; time and memory are linear in the number of patches; measured run times in \texttt{results/all\_runs.csv}.
 
 \smallskip\noindent\textbf{Theoretical claims.} None beyond the exact decomposition in Eq.~\eqref{eq:additive}, which follows from linearity.
 

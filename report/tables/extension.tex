@@ -1,6 +1,6 @@
 \begin{table*}[t]
 \centering
-\caption{Research extension versus the ABMIL baseline and ablations of its two components (test metrics, mean $\pm$ std over seeds). $\Delta$AUC is paired by seed.}
+\caption{Research extension versus the ABMIL baseline and ablations of its two components (test metrics, mean $\pm$ std over seeds). $\Delta$AUC: test-AUC difference to ABMIL paired by seed, mean $\pm$ std; ($k$/5): number of seeds on which the method beats ABMIL.}
 \label{tab:extension}
 \setlength{\tabcolsep}{4pt}
 \resizebox{\textwidth}{!}{%
@@ -15,9 +15,9 @@ ACMIL (MBA + STKIM) & \textbf{0.918 $\pm$ 0.032} & 85.74 $\pm$ 3.82 & 0.849 $\pm
 MBA only & 0.915 $\pm$ 0.049 & 86.51 $\pm$ 3.22 & 0.851 $\pm$ 0.039 & \textbf{0.884 $\pm$ 0.013} & \textbf{83.20 $\pm$ 2.41} & \textbf{0.639 $\pm$ 0.061} & 0.809 $\pm$ 0.016 & \textbf{46.28 $\pm$ 1.91} & \textbf{0.398 $\pm$ 0.012} \\
 STKIM only & 0.897 $\pm$ 0.029 & 86.51 $\pm$ 4.70 & 0.852 $\pm$ 0.050 & 0.848 $\pm$ 0.007 & 79.90 $\pm$ 2.84 & 0.551 $\pm$ 0.041 & 0.804 $\pm$ 0.013 & 42.09 $\pm$ 1.91 & 0.359 $\pm$ 0.015 \\
 \midrule
-ACMIL (MBA + STKIM) vs.\ ABMIL & \multicolumn{3}{c}{$\Delta$AUC +0.004 $\pm$ 0.056 (3/5 seeds better)} & \multicolumn{3}{c}{$\Delta$AUC +0.017 $\pm$ 0.015 (5/5 seeds better)} & \multicolumn{3}{c}{$\Delta$AUC +0.005 $\pm$ 0.023 (3/5 seeds better)} \\
-MBA only vs.\ ABMIL & \multicolumn{3}{c}{$\Delta$AUC +0.001 $\pm$ 0.077 (3/5 seeds better)} & \multicolumn{3}{c}{$\Delta$AUC +0.029 $\pm$ 0.005 (5/5 seeds better)} & \multicolumn{3}{c}{$\Delta$AUC +0.002 $\pm$ 0.025 (3/5 seeds better)} \\
-STKIM only vs.\ ABMIL & \multicolumn{3}{c}{$\Delta$AUC -0.016 $\pm$ 0.026 (2/5 seeds better)} & \multicolumn{3}{c}{$\Delta$AUC -0.007 $\pm$ 0.017 (2/5 seeds better)} & \multicolumn{3}{c}{$\Delta$AUC -0.003 $\pm$ 0.019 (3/5 seeds better)} \\
+ACMIL (MBA + STKIM) vs.\ ABMIL & \multicolumn{3}{c}{$\Delta$AUC $+0.004\pm0.056$ (3/5)} & \multicolumn{3}{c}{$\Delta$AUC $+0.017\pm0.015$ (5/5)} & \multicolumn{3}{c}{$\Delta$AUC $+0.005\pm0.023$ (3/5)} \\
+MBA only vs.\ ABMIL & \multicolumn{3}{c}{$\Delta$AUC $+0.001\pm0.077$ (3/5)} & \multicolumn{3}{c}{$\Delta$AUC $+0.029\pm0.005$ (5/5)} & \multicolumn{3}{c}{$\Delta$AUC $+0.002\pm0.025$ (3/5)} \\
+STKIM only vs.\ ABMIL & \multicolumn{3}{c}{$\Delta$AUC $-0.016\pm0.026$ (2/5)} & \multicolumn{3}{c}{$\Delta$AUC $-0.007\pm0.017$ (2/5)} & \multicolumn{3}{c}{$\Delta$AUC $-0.003\pm0.019$ (3/5)} \\
 \bottomrule
 \end{tabular}}
 \end{table*}

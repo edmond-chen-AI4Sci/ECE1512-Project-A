@@ -34,6 +34,8 @@ MODEL_LABEL = {
 COLORS = {"abmil": "#2a78d6", "acmil": "#eb6834", "acmil_mba": "#1baf7a",
           "acmil_stkim": "#6f6e69", "meanpool": "#6f6e69", "maxpool": "#a3a29b"}
 METRICS = ["auc", "acc", "f1"]
+SHORT_LABEL = {"abmil": "ABMIL", "acmil": "ACMIL", "acmil_mba": "MBA only", "acmil_stkim": "STKIM only",
+               "meanpool": "Mean pool", "maxpool": "Max pool"}
 
 
 # ---------------------------------------------------------------------------
@@ -126,7 +128,7 @@ def latex_table(summary, models, caption, label, metrics=("auc", "acc", "f1"), d
             for ds in DATASETS:
                 if ds in d:
                     mean, std, wins, n = d[ds]
-                    cells.append(f"\\multicolumn{{{len(metrics)}}}{{c}}{{$\\Delta$AUC {mean:+.3f} $\\pm$ {std:.3f} ({wins}/{n} seeds better)}}")
+                    cells.append(f"\\multicolumn{{{len(metrics)}}}{{c}}{{$\\Delta$AUC ${mean:+.3f}\\pm{std:.3f}$ ({wins}/{n})}}")
                 else:
                     cells.append(f"\\multicolumn{{{len(metrics)}}}{{c}}{{--}}")
             lines.append(f"{MODEL_LABEL.get(model, model)} vs.\\ ABMIL & " + " & ".join(cells) + " \\\\")
@@ -152,9 +154,9 @@ def latex_attention_table(summary, models):
             if r.empty or pd.isna(r["attn_entropy_norm_mean"].iloc[0]):
                 cells += ["--", "--"]
                 continue
-            cells.append(fmt(r["attn_entropy_norm_mean"].iloc[0], r["attn_entropy_norm_std"].iloc[0], digits=2))
-            cells.append(fmt(r["attn_top1pct_mass_mean"].iloc[0], r["attn_top1pct_mass_std"].iloc[0], digits=2))
-        lines.append(MODEL_LABEL.get(model, model) + " & " + " & ".join(cells) + " \\\\")
+            cells.append(f"${r['attn_entropy_norm_mean'].iloc[0]:.2f}\\pm{r['attn_entropy_norm_std'].iloc[0]:.2f}$")
+            cells.append(f"${r['attn_top1pct_mass_mean'].iloc[0]:.2f}\\pm{r['attn_top1pct_mass_std'].iloc[0]:.2f}$")
+        lines.append(SHORT_LABEL.get(model, model) + " & " + " & ".join(cells) + " \\\\")
     lines += ["\\bottomrule", "\\end{tabular}}", "\\end{table}"]
     return "\n".join(lines)
 
@@ -163,26 +165,21 @@ def latex_splits_table(splits, summary):
     if not splits:
         return None
     lines = ["\\begin{table}[t]", "\\centering",
-             "\\caption{Slide-level splits shared by every experiment (split seed 42). Parentheses: slides per class, in label "
-             "order CAMELYON16 normal/tumor; CAMELYON17 negative/ITC/micro/macro; BRACS N/PB/UDH/FEA/ADH/DCIS/IC.}",
-             "\\label{tab:splits}", "\\setlength{\\tabcolsep}{3pt}", "\\resizebox{\\columnwidth}{!}{%",
+             "\\caption{Slide-level splits shared by every experiment (split seed 42). Second row of each dataset: "
+             "slides per class, in label order (CAMELYON16 normal/tumour; CAMELYON17 negative/ITC/micro/macro; "
+             "BRACS N/PB/UDH/FEA/ADH/DCIS/IC).}",
+             "\\label{tab:splits}", "\\footnotesize", "\\setlength{\\tabcolsep}{4pt}",
              "\\begin{tabular}{lccc}", "\\toprule", "Dataset & Train & Val & Test \\\\", "\\midrule"]
-    for ds in DATASETS:
-        if ds not in splits:
-            continue
+    for i, ds in enumerate([d for d in DATASETS if d in splits]):
         sp = splits[ds]
         cc = sp.get("class_counts") or {}
-        cell = lambda k: f"{sp[f'n_{k}']} ({'/'.join(map(str, cc[k]))})" if k in cc else str(sp[f"n_{k}"])
-        lines.append(f"{DS_LABEL[ds]} & {cell('train')} & {cell('val')} & {cell('test')} \\\\")
-    rows = []
-    for model in ["abmil", "acmil"]:
-        r = summary[summary.model == model]
-        if not r.empty:
-            vals = [f"{int(r[r.dataset == d].n_params.iloc[0]):,}" if not r[r.dataset == d].empty else "--" for d in DATASETS]
-            rows.append(f"{MODEL_LABEL[model].split(' (')[0]} parameters & " + " & ".join(vals) + " \\\\")
-    if rows:
-        lines += ["\\midrule", " & " + " & ".join(DS_LABEL[d] for d in DATASETS) + " \\\\"] + rows
-    lines += ["\\bottomrule", "\\end{tabular}}", "\\end{table}"]
+        if i:
+            lines.append("\\addlinespace")
+        lines.append(f"{DS_LABEL[ds]} & {sp['n_train']} & {sp['n_val']} & {sp['n_test']} \\\\")
+        if cc:
+            lines.append("\\quad per class & " + " & ".join(
+                "{\\scriptsize " + "/".join(map(str, cc[k])) + "}" for k in ("train", "val", "test")) + " \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
     return "\n".join(lines)
 
 
@@ -369,7 +366,7 @@ def main():
         "extension.tex": latex_table(
             summary, ["abmil", "acmil", "acmil_mba", "acmil_stkim"],
             "Research extension versus the ABMIL baseline and ablations of its two components "
-            "(test metrics, mean $\\pm$ std over seeds). $\\Delta$AUC is paired by seed.", "tab:extension",
+            "(test metrics, mean $\\pm$ std over seeds). $\\Delta$AUC: test-AUC difference to ABMIL paired by seed, mean $\\pm$ std; ($k$/5): number of seeds on which the method beats ABMIL.", "tab:extension",
             delta={m: paired_delta(df, m) for m in ["acmil", "acmil_mba", "acmil_stkim"]}),
         "splits.tex": latex_splits_table(splits, summary),
         "attention.tex": latex_attention_table(summary, ["abmil", "acmil_stkim", "acmil_mba", "acmil"]),
